@@ -1,0 +1,71 @@
+﻿<Window x:Class="TestR1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestR1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="900">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Baris 1: Tombol + Buzzer -->
+        <DockPanel Grid.Row="0" Margin="0,0,0,10">
+            <!-- Tombol di kiri -->
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                <Button x:Name="btnUsbToggle" Content="Connect" Width="100" Click="btnUsbToggle_Click" MaxHeight="50" Margin="0,0,10,0"/>
+                <Button x:Name="btnStart" Content="Start" Width="100" Click="btnStart_Click" MaxHeight="50" Margin="0,0,10,0"/>
+                <Button x:Name="btnClear" Content="Clear" Width="100" Click="btnClear_Click" MaxHeight="50"/>
+            </StackPanel>
+
+            <!-- GroupBox Buzzer di kanan -->
+            <GroupBox Header="Buzzer" DockPanel.Dock="Right" Margin="20,0,0,0" Padding="10">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <RadioButton x:Name="rbEnableBuzzer" Content="Enable" GroupName="Buzzer"/>
+                        <RadioButton x:Name="rbDisableBuzzer" Content="Disable" GroupName="Buzzer" Margin="20,0,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Content="Get" Width="60" Margin="0,0,10,0" Click="btnGetBuzzer_Click"/>
+                        <Button Content="Set" Width="60" Click="btnSetBuzzer_Click"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="txtBuzzerStatus" FontWeight="Bold" Margin="0,10,0,0"/>
+                </StackPanel>
+            </GroupBox>
+        </DockPanel>
+
+        <!-- Baris 2: Info Tag & Waktu -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left" Grid.Row="1">
+            <TextBlock Text="Tag Terbaca: " FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock x:Name="lblTotal" Text="0" Width="50" Margin="5,0,20,0" VerticalAlignment="Center"/>
+
+            <TextBlock Text="Waktu: " FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock x:Name="lblTime" Text="0 ms" Width="100" VerticalAlignment="Center"/>
+
+            <TextBlock Text="Temp: " FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock x:Name="lblTemp" Text="-" Width="50" Margin="5,0,20,0" VerticalAlignment="Center"/>
+            <Button x:Name="btnTemp" Content="Get Temp" Width="80" Click="btnTemp_Click"/>
+
+        </StackPanel>
+
+        <!-- Baris 3: DataGrid -->
+        <DataGrid x:Name="dgData" Grid.Row="2" ItemsSource="{Binding EpcList}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#" Binding="{Binding No}" Width="40"/>
+                <DataGridTextColumn Header="EPC" Binding="{Binding Epc}" Width="*"/>
+                <DataGridTextColumn Header="ASCII" Binding="{Binding AsciiEpc}" Width="*"/>
+                <DataGridTextColumn Header="TID" Binding="{Binding Tid}" Width="*"/>
+                <DataGridTextColumn Header="USER" Binding="{Binding User}" Width="*"/>
+                <DataGridTextColumn Header="COUNT" Binding="{Binding Count}" Width="*"/>
+                <DataGridTextColumn Header="RSSI" Binding="{Binding Rssi}" Width="*"/>
+                <DataGridTextColumn Header="ANT" Binding="{Binding AntString}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
